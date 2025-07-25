@@ -1,0 +1,36 @@
+# Currency-specific commands for EU Currency Converter
+
+.PHONY: currency-trend
+currency-trend: ## Generate currency trend report with predictions
+	@deno run --allow-read --allow-write --allow-net scripts/currency/trend-report.ts $(ARGS)
+
+.PHONY: currency-convert
+currency-convert: ## Convert between currencies
+	@echo "$(BLUE)Converting currencies...$(RESET)"
+	@deno run --allow-read --allow-write --allow-net scripts/currency/convert.ts $(ARGS)
+
+.PHONY: currency-rates
+currency-rates: ## Display current exchange rates
+	@echo "$(BLUE)Fetching current exchange rates...$(RESET)"
+	@deno run --allow-read --allow-write --allow-net scripts/currency/rates.ts
+
+.PHONY: currency-update
+currency-update: ## Update exchange rate data
+	@echo "$(BLUE)Updating exchange rate data...$(RESET)"
+	@deno run --allow-read --allow-write --allow-net scripts/currency/update-rates.ts
+
+.PHONY: currency-history
+currency-history: ## Show historical exchange rates
+	@echo "$(BLUE)Fetching historical exchange rates...$(RESET)"
+	@deno run --allow-read --allow-write scripts/currency/history.ts $(ARGS)
+
+.PHONY: currency-list
+currency-list: ## List supported currencies
+	@echo "$(BLUE)Supported EU currencies:$(RESET)"
+	@deno run --allow-read scripts/currency/list.ts
+
+.PHONY: currency-validate
+currency-validate: ## Validate currency data integrity
+	@echo "$(BLUE)Validating currency data...$(RESET)"
+	@deno run --allow-read scripts/currency/validate.ts
+	@echo "$(GREEN)✓ Currency data validation complete$(RESET)"

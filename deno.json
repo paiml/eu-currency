@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "test": "deno test --allow-all",
+    "format": "deno fmt",
+    "lint": "deno lint",
+    "check": "deno check scripts/**/*.ts tests/**/*.ts"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true
+  },
+  "fmt": {
+    "include": ["scripts/", "tests/", "deps.ts"],
+    "exclude": ["coverage/", "data/"],
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "singleQuote": false,
+    "proseWrap": "always"
+  },
+  "lint": {
+    "include": ["scripts/", "tests/", "deps.ts"],
+    "exclude": ["coverage/", "data/"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": [
+        "no-eval",
+        "no-sync-fn",
+        "no-throw-literal"
+      ],
+      "exclude": ["no-console", "no-explicit-any", "no-await-in-loop"]
+    }
+  },
+  "test": {
+    "include": ["tests/"],
+    "exclude": ["coverage/"]
+  },
+  "importMap": "./import_map.json"
+}

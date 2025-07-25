@@ -1,0 +1,55 @@
+# Development-related commands for EU Currency Converter
+
+.PHONY: format
+format: ## Format code
+	@echo "$(BLUE)Formatting code...$(RESET)"
+	@deno fmt
+	@echo "$(GREEN)✓ Code formatted$(RESET)"
+
+.PHONY: format-check
+format-check: ## Check code formatting
+	@echo "$(BLUE)Checking code formatting...$(RESET)"
+	@deno fmt --check || { echo "$(RED)✗ Code formatting issues found. Run 'make format' to fix.$(RESET)"; exit 1; }
+	@echo "$(GREEN)✓ Code formatting check passed$(RESET)"
+
+.PHONY: lint
+lint: ## Lint code
+	@echo "$(BLUE)Linting code...$(RESET)"
+	@deno lint || { echo "$(RED)✗ Linting issues found$(RESET)"; exit 1; }
+	@echo "$(GREEN)✓ Linting check passed$(RESET)"
+
+.PHONY: type-check
+type-check: ## Type check TypeScript code
+	@echo "$(BLUE)Type checking TypeScript...$(RESET)"
+	@deno check --allow-import scripts/**/*.ts tests/**/*.ts || { echo "$(RED)✗ Type check failed$(RESET)"; exit 1; }
+	@echo "$(GREEN)✓ Type check passed$(RESET)"
+
+.PHONY: watch
+watch: ## Run tests in watch mode
+	@echo "$(BLUE)Running tests in watch mode...$(RESET)"
+	@deno test --allow-all --watch
+
+.PHONY: deps
+deps: ## Cache dependencies
+	@echo "$(BLUE)Caching dependencies...$(RESET)"
+	@deno cache deps.ts
+	@echo "$(GREEN)✓ Dependencies cached$(RESET)"
+
+.PHONY: deps-update
+deps-update: ## Update dependencies
+	@echo "$(BLUE)Updating dependencies...$(RESET)"
+	@deno cache --reload deps.ts
+	@echo "$(GREEN)✓ Dependencies updated$(RESET)"
+
+.PHONY: deps-info
+deps-info: ## Show dependency information
+	@echo "$(BLUE)Dependency information:$(RESET)"
+	@deno info deps.ts
+
+.PHONY: install-hooks
+install-hooks: ## Install git hooks
+	@echo "$(BLUE)Installing git hooks...$(RESET)"
+	@echo "#!/bin/sh" > .git/hooks/pre-commit
+	@echo "make validate" >> .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+	@echo "$(GREEN)✓ Git hooks installed$(RESET)"
