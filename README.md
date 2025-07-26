@@ -134,7 +134,7 @@ eu-currency/
 
 ## Development
 
-This project follows the same patterns as [linkedin-rev-stats](https://github.com/yourusername/linkedin-rev-stats):
+This project follows pattern:
 - Makefile-driven workflow
 - Strict TypeScript configuration
 - BDD-style testing
